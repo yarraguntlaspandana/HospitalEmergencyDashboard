@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Hospital Emergency Network
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+<header class="top-header">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🚑
+        </div>
+
+        <div>
+            <h1>
+                Hospital Emergency Network
+            </h1>
+
+            <p>
+                Real-time patient communication system
+            </p>
+        </div>
+
+    </div>
+
+    <div class="online-status">
+        <span></span>
+        NETWORK ONLINE
+    </div>
+
+</header>
+
+
+<nav class="navigation">
+
+    <button class="nav-btn active">
+        Dashboard
+    </button>
+
+    <button class="nav-btn">
+        Emergency Data
+    </button>
+
+    <button class="nav-btn">
+        Routing
+    </button>
+
+    <button class="nav-btn">
+        Transmission
+    </button>
+
+    <button class="nav-btn">
+        Logs
+    </button>
+
+</nav>
+
+
+<main class="container">
+
+
+    <!-- STATISTICS -->
+
+    <section class="stats-grid">
+
+        <div class="stat-card blue">
+
+            <span class="stat-icon">
+                🏥
+            </span>
+
+            <div>
+                <small>
+                    NETWORK NODES
+                </small>
+
+                <strong>
+                    6
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card green">
+
+            <span class="stat-icon">
+                ✓
+            </span>
+
+            <div>
+                <small>
+                    ACTIVE NODES
+                </small>
+
+                <strong>
+                    6
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card orange">
+
+            <span class="stat-icon">
+                📦
+            </span>
+
+            <div>
+                <small>
+                    PACKETS DELIVERED
+                </small>
+
+                <strong id="packetsDelivered">
+                    0
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card purple">
+
+            <span class="stat-icon">
+                ↻
+            </span>
+
+            <div>
+                <small>
+                    RETRANSMISSIONS
+                </small>
+
+                <strong id="retransmissions">
+                    0
+                </strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- NETWORK TOPOLOGY -->
+
+    <section class="card topology-card">
+
+        <div class="section-header">
+
+            <div>
+
+                <h2>
+                    🌐 Network Topology
+                </h2>
+
+                <p>
+                    Hospital communication network
+                </p>
+
+            </div>
+
+            <span class="live-badge">
+                ● LIVE
+            </span>
+
+        </div>
+
+
+        <div class="network-map">
+
+            <svg
+                class="connections"
+                viewBox="0 0 900 430"
+                preserveAspectRatio="none"
+            >
+
+                <!-- ICU -> Router A -->
+
+                <line
+                    id="line-icu-a"
+                    x1="100"
+                    y1="215"
+                    x2="280"
+                    y2="100"
+                ></line>
+
+
+                <!-- ICU -> Router B -->
+
+                <line
+                    id="line-icu-b"
+                    x1="100"
+                    y1="215"
+                    x2="280"
+                    y2="330"
+                ></line>
+
+
+                <!-- Router A -> Router B -->
+
+                <line
+                    id="line-a-b"
+                    x1="280"
+                    y1="100"
+                    x2="280"
+                    y2="330"
+                ></line>
+
+
+                <!-- Router A -> Emergency Server -->
+
+                <line
+                    id="line-a-server"
+                    x1="280"
+                    y1="100"
+                    x2="770"
+                    y2="215"
+                ></line>
+
+
+                <!-- Router B -> Router C -->
+
+                <line
+                    id="line-b-c"
+                    x1="280"
+                    y1="330"
+                    x2="470"
+                    y2="330"
+                ></line>
+
+
+                <!-- Router C -> Router D -->
+
+                <line
+                    id="line-c-d"
+                    x1="470"
+                    y1="330"
+                    x2="620"
+                    y2="330"
+                ></line>
+
+
+                <!-- Router D -> Emergency Server -->
+
+                <line
+                    id="line-d-server"
+                    x1="620"
+                    y1="330"
+                    x2="770"
+                    y2="215"
+                ></line>
+
+            </svg>
+
+
+            <!-- ICU -->
+
+            <div
+                class="network-node icu-node"
+                id="node-icu"
+            >
+
+                <span>
+                    🏥
+                </span>
+
+                <b>
+                    ICU
+                </b>
+
+                <small>
+                    Source
+                </small>
+
+            </div>
+
+
+            <!-- ROUTER A -->
+
+            <div
+                class="network-node router-a"
+                id="node-router-a"
+            >
+
+                <span>
+                    🔵
+                </span>
+
+                <b>
+                    Router A
+                </b>
+
+                <small>
+                    Cost: 2
+                </small>
+
+            </div>
+
+
+            <!-- ROUTER B -->
+
+            <div
+                class="network-node router-b"
+                id="node-router-b"
+            >
+
+                <span>
+                    🟣
+                </span>
+
+                <b>
+                    Router B
+                </b>
+
+                <small>
+                    Cost: 4
+                </small>
+
+            </div>
+
+
+            <!-- ROUTER C -->
+
+            <div
+                class="network-node router-c"
+                id="node-router-c"
+            >
+
+                <span>
+                    🟢
+                </span>
+
+                <b>
+                    Router C
+                </b>
+
+                <small>
+                    Cost: 2
+                </small>
+
+            </div>
+
+
+            <!-- ROUTER D -->
+
+            <div
+                class="network-node router-d"
+                id="node-router-d"
+            >
+
+                <span>
+                    🟠
+                </span>
+
+                <b>
+                    Router D
+                </b>
+
+                <small>
+                    Cost: 2
+                </small>
+
+            </div>
+
+
+            <!-- SERVER -->
+
+            <div
+                class="network-node server-node"
+                id="node-server"
+            >
+
+                <span>
+                    🚨
+                </span>
+
+                <b>
+                    Emergency Server
+                </b>
+
+                <small>
+                    Destination
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="network-legend">
+
+            <span>
+                <i class="legend-normal"></i>
+                Network connection
+            </span>
+
+            <span>
+                <i class="legend-route"></i>
+                Selected route
+            </span>
+
+            <span>
+                <i class="legend-failed"></i>
+                Failed connection
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- MAIN GRID -->
+
+    <section class="main-grid">
+
+
+        <!-- PATIENT -->
+
+        <div class="card patient-card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🚑 Emergency Patient Data
+                    </h2>
+
+                    <p>
+                        Edit patient information before transmission
+                    </p>
+
+                </div>
+
+                <span
+                    id="priorityBadge"
+                    class="priority-badge emergency"
+                >
+                    🚨 EMERGENCY
+                </span>
+
+            </div>
+
+
+            <div class="patient-form">
+
+                <div class="input-group">
+
+                    <label>
+                        Patient ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="patientId"
+                        value="P101"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Patient Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="patientName"
+                        value="Divya"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Heart Rate (BPM)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="heartRate"
+                        value="120"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Temperature (°C)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="temperature"
+                        value="38.5"
+                        step="0.1"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Priority
+                    </label>
+
+                    <select
+                        id="priority"
+                        onchange="changePriority()"
+                    >
+
+                        <option value="Emergency">
+                            🚨 Emergency
+                        </option>
+
+                        <option value="Normal">
+                            🟢 Normal
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="patient-actions">
+
+                <button
+                    class="send-btn"
+                    onclick="startTransmission()"
+                >
+                    🚑 Send Patient Data
+                </button>
+
+                <button
+                    class="clear-btn"
+                    onclick="clearPatientDetails()"
+                >
+                    Clear
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ROUTE OPTIMIZATION -->
+
+        <div class="card route-card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🧭 Route Optimization
+                    </h2>
+
+                    <p>
+                        Dijkstra shortest path
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="route-line"
+                id="routeDisplay"
+            >
+
+                <span class="route-node">
+                    🏥 ICU
+                </span>
+
+                <span class="arrow">
+                    →
+                </span>
+
+                <span class="route-node">
+                    🔵 Router A
+                </span>
+
+                <span class="arrow">
+                    →
+                </span>
+
+                <span class="route-node server">
+                    🚨 Emergency Server
+                </span>
+
+            </div>
+
+
+            <div class="route-cost">
+
+                <span>
+                    Shortest Path Cost
+                </span>
+
+                <strong id="routeCost">
+                    8
+                </strong>
+
+            </div>
+
+
+            <div
+                id="routeMessage"
+                class="route-message"
+            >
+                Dijkstra selected the shortest route.
+            </div>
+
+
+            <button
+                class="route-btn"
+                onclick="findRoute()"
+            >
+                🔍 Find Best Route
+            </button>
+
+
+            <button
+                class="failure-btn"
+                onclick="simulateRouteFailure()"
+            >
+                ⚠️ Simulate Router A Failure
+            </button>
+
+
+            <button
+                class="reset-route-btn"
+                onclick="resetRoute()"
+            >
+                ↩ Reset Network Route
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- TRANSMISSION -->
+
+    <section class="card transmission-card">
+
+        <div class="section-header">
+
+            <div>
+
+                <h2>
+                    📡 Data Transmission
+                </h2>
+
+                <p>
+                    CRC + Framing + Sliding Window + Go-Back-N
+                </p>
+
+            </div>
+
+            <span
+                id="transmissionStatus"
+                class="waiting-badge"
+            >
+                WAITING
+            </span>
+
+        </div>
+
+
+        <div class="error-controls">
+
+            <label>
+                Error Simulation:
+            </label>
+
+            <select
+                id="errorMode"
+                onchange="toggleFrameSelect()"
+            >
+
+                <option value="none">
+                    No Error
+                </option>
+
+                <option value="random">
+                    Random Error
+                </option>
+
+                <option value="choose">
+                    Choose Frame
+                </option>
+
+            </select>
+
+
+            <select
+                id="failedFrame"
+                style="display:none"
+            >
+
+                <option value="0">
+                    F1
+                </option>
+
+                <option value="1">
+                    F2
+                </option>
+
+                <option value="2">
+                    F3
+                </option>
+
+                <option value="3">
+                    F4
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="frame-container">
+
+
+            <div
+                class="frame"
+                id="frame0"
+            >
+
+                <div class="frame-number">
+                    F1
+                </div>
+
+                <div class="frame-data">
+                    Patient ID
+                </div>
+
+                <div class="frame-status">
+                    Waiting
+                </div>
+
+            </div>
+
+
+            <div
+                class="frame"
+                id="frame1"
+            >
+
+                <div class="frame-number">
+                    F2
+                </div>
+
+                <div class="frame-data">
+                    Patient Name
+                </div>
+
+                <div class="frame-status">
+                    Waiting
+                </div>
+
+            </div>
+
+
+            <div
+                class="frame"
+                id="frame2"
+            >
+
+                <div class="frame-number">
+                    F3
+                </div>
+
+                <div class="frame-data">
+                    Vital Signs
+                </div>
+
+                <div class="frame-status">
+                    Waiting
+                </div>
+
+            </div>
+
+
+            <div
+                class="frame"
+                id="frame3"
+            >
+
+                <div class="frame-number">
+                    F4
+                </div>
+
+                <div class="frame-data">
+                    Priority
+                </div>
+
+                <div class="frame-status">
+                    Waiting
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress-area">
+
+            <div class="progress-bar">
+
+                <div
+                    id="progress"
+                    class="progress"
+                ></div>
+
+            </div>
+
+            <span id="progressText">
+                0%
+            </span>
+
+        </div>
+
+
+        <div class="transmission-actions">
+
+            <button
+                class="send-btn"
+                onclick="startTransmission()"
+            >
+                ▶ Start Transmission
+            </button>
+
+            <button
+                class="clear-btn"
+                onclick="resetTransmission()"
+            >
+                ↻ Reset
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- LOGS -->
+
+    <section class="card log-card">
+
+        <div class="section-header">
+
+            <div>
+
+                <h2>
+                    📋 Communication Activity
+                </h2>
+
+                <p>
+                    Real-time network events
+                </p>
+
+            </div>
+
+            <button
+                class="clear-log-btn"
+                onclick="clearLogs()"
+            >
+                Clear Logs
+            </button>
+
+        </div>
+
+
+        <div
+            id="activityLog"
+            class="activity-log"
+        >
+
+            <div class="log-item info">
+
+                <span>
+                    ●
+                </span>
+
+                <p>
+                    Hospital network initialized.
+                </p>
+
+                <small>
+                    Now
+                </small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONCEPTS -->
+
+    <section class="concept-grid">
+
+        <div class="concept-card">
+
+            <strong>
+                CRC
+            </strong>
+
+            <span>
+                Detects transmission errors.
+            </span>
+
+        </div>
+
+
+        <div class="concept-card">
+
+            <strong>
+                Framing
+            </strong>
+
+            <span>
+                Divides patient data into frames.
+            </span>
+
+        </div>
+
+
+        <div class="concept-card">
+
+            <strong>
+                Sliding Window
+            </strong>
+
+            <span>
+                Controls multiple frames in transmission.
+            </span>
+
+        </div>
+
+
+        <div class="concept-card">
+
+            <strong>
+                Go-Back-N
+            </strong>
+
+            <span>
+                Retransmits frames after an error.
+            </span>
+
+        </div>
+
+
+        <div class="concept-card">
+
+            <strong>
+                Dijkstra
+            </strong>
+
+            <span>
+                Finds the lowest-cost network route.
+            </span>
+
+        </div>
+
+
+        <div class="concept-card">
+
+            <strong>
+                Priority
+            </strong>
+
+            <span>
+                Identifies emergency patient data.
+            </span>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script src="app.js"></script>
+
+</body>
+
+</html>
